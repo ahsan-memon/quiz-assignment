@@ -1,12 +1,14 @@
+
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button, Form, Col, Row, Container } from 'react-bootstrap';
 import ListQuestion from './ListQuestion'
+import { useHistory } from 'react-router';
 
 const FormCreate = () => {
-
+  const history = useHistory();
   return (
-    <Container className="border">
+    <Container className="border" >
       <Form >
         <p className="text-center m-0"><b>Create a Quiz</b></p>
         <Row className='mb-3'>
@@ -44,12 +46,12 @@ const FormCreate = () => {
         </Row>
 
         <div className="d-flex flex-row-reverse">
-          <Button variant="primary" className="m-2" type="button">
+          <Button variant="primary" className="m-2" type="button" onClick={() => { history.push("/") }}>
             Create Quiz
-        </Button>
-          <Button variant="light" className="m-2 border" type="button">
+          </Button>
+          <Button variant="light" className="m-2 border" type="button" onClick={() => { history.push("/") }}>
             Cancel
-        </Button>
+          </Button>
         </div>
 
       </Form>

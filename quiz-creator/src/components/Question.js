@@ -1,8 +1,10 @@
 import React from 'react'
-import { Button, Form, Col, Row, InputGroup, Container, } from 'react-bootstrap';
+import { Button, Form, Col, Row, Container, } from 'react-bootstrap';
 import ListChoice from './ListChoice'
+import { useHistory } from 'react-router';
 
 export default function Question() {
+    const history = useHistory();
     return (
         <Container className="border">
             <Form >
@@ -18,9 +20,9 @@ export default function Question() {
                         <Form.Label>Type</Form.Label><br />
                         <div>
                             <input className="form-check-input" type="radio" value="single" name="choice" /> Single Choice
-                        <br />
+                            <br />
                             <input className="form-check-input" type="radio" value="multiple" name="choice" /> Multiple Choice
-                        <br />
+                            <br />
 
                         </div>
                     </Col>
@@ -36,12 +38,12 @@ export default function Question() {
                 <ListChoice />
 
                 <div className="d-flex flex-row-reverse">
-                    <Button className="p-2" variant="primary" className="m-2">
+                    <Button className="p-2" variant="primary" className="m-2" onClick={() => { history.push("/createQuiz") }}>
                         Create
-                </Button>
-                    <Button className="p-2" variant="light" className="m-2 border">
+                    </Button>
+                    <Button className="p-2" variant="light" className="m-2 border" onClick={() => { history.push("/createQuiz") }}>
                         Cancel
-                </Button>
+                    </Button>
                 </div>
 
             </Form>
