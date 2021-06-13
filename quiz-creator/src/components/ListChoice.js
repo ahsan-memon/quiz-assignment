@@ -13,23 +13,28 @@ const ListChoice = () => {
       </div>
     )
   else return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Text</th>
-          <th>Is Correct</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Lorem Ipsum</td>
-          <td>Yes</td>
-          <td>action1</td>
-        </tr>
+    <>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Text</th>
+            <th>Is Correct</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lorem Ipsum</td>
+            <td>Yes</td>
+            <td>action1</td>
+          </tr>
 
-      </tbody>
-    </Table>
+        </tbody>
+      </Table>
+      <div className="d-flex flex-row-reverse ">
+        <Button className="px-3" variant="outline-primary" onClick={() => { history.push("/createChoice") }}>Add Choice</Button>
+      </div>
+    </>
   )
 }
 export default ListChoice;

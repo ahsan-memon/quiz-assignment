@@ -1,17 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Col, Row, Container, } from 'react-bootstrap';
 import ListChoice from './ListChoice'
 import { useHistory } from 'react-router';
 
 export default function Question() {
     const history = useHistory();
+    const [questionInfo, setQuestionInfo] = useState({
+        "question": "",
+        "type": "",
+        "points": "",
+        // "choices": ["yes", "no"]
+
+    })
+
+    function temp() {
+        console.log(questionInfo)
+    }
+
     return (
         <Container className="border">
             <Form >
                 <h1><b>Question</b></h1>
                 <Row className='mb-3'>
                     <Col>
-                        <p>Is this a question?</p>
+                        <Form.Control placeholder="Write Question Here"
+                            onChange={e => (questionInfo.question = e.target.value)} />
                     </Col>
                 </Row>
 
@@ -19,9 +32,9 @@ export default function Question() {
                     <Col>
                         <Form.Label>Type</Form.Label><br />
                         <div>
-                            <input className="form-check-input" type="radio" value="single" name="choice" /> Single Choice
+                            <input className="form-check-input" type="radio" value="single" name="choice" onChange={e => (questionInfo.type = "Single Choice")} /> Single Choice
                             <br />
-                            <input className="form-check-input" type="radio" value="multiple" name="choice" /> Multiple Choice
+                            <input className="form-check-input" type="radio" value="multiple" name="choice" onChange={e => (questionInfo.type = "Multiple Choice")} /> Multiple Choice
                             <br />
 
                         </div>
@@ -29,7 +42,8 @@ export default function Question() {
                     <Col>
                         <Form.Label>Points</Form.Label>
                         <div>
-                            <input type="form-control" class="form-control" id="points" />
+                            <Form.Control placeholder="Enter Points"
+                                onChange={e => (questionInfo.points = e.target.value)} />
                             <br />
                         </div>
                     </Col>
