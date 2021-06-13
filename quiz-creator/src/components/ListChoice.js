@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 
 let empty = true;
 const ListChoice = () => {
+
   const history = useHistory();
   if (empty)
     return (

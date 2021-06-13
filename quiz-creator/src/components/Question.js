@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Form, Col, Row, Container, } from 'react-bootstrap';
 import ListChoice from './ListChoice'
 import { useHistory } from 'react-router';
+import { choiceProvider, questionProvider } from '../App'
+
 
 export default function Question() {
-    const history = useHistory();
-    const [questionInfo, setQuestionInfo] = useState({
-        "question": "",
-        "type": "",
-        "points": "",
-        // "choices": ["yes", "no"]
+    const [choiceInfo, setChoiceInfo] = useContext(choiceProvider)
+    console.log(choiceInfo)
 
-    })
+    const [questionInfo, setQuestionInfo] = useContext(questionProvider)
+    console.log(questionInfo)
+
+    const history = useHistory();
+
 
     function temp() {
         console.log(questionInfo)

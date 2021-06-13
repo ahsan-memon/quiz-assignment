@@ -1,11 +1,17 @@
 
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button, Form, Col, Row, Container } from 'react-bootstrap';
 import ListQuestion from './ListQuestion';
 import { useHistory } from 'react-router';
+import { questionProvider } from '../App'
 
 const FormCreate = () => {
+
+  // ----HERE-------------
+  const [questionInfo, setQuestionInfo] = useContext(questionProvider)
+  console.log(questionInfo)
+
   const history = useHistory();
   const [quizInfo, setQuizInfo] = useState({
     "title": "",

@@ -9,8 +9,24 @@ import Quizzes from './components/Quizzes'
 import Choice from './components/Choice'
 import { Container } from "react-bootstrap"
 
+export const choiceProvider = React.createContext();
+export const questionProvider = React.createContext();
+
 
 function App() {
+  const [choiceInfo, setChoiceInfo] = useState({
+    "choice": "",
+    "isCorrect": ""
+  })
+
+  const [questionInfo, setQuestionInfo] = useState({
+    "question": "",
+    "type": "",
+    "points": "",
+    // "choices": ["yes", "no"]
+
+  })
+
 
   return (
     <Container className="mt-5 w-50">
@@ -21,16 +37,27 @@ function App() {
             {<Quizzes />}
           </Route>
 
+
           <Route path="/createQuiz">
-            <FormCreate />
+            <questionProvider.Provider value={[questionInfo, setQuestionInfo]}>
+              <FormCreate />
+            </questionProvider.Provider>
           </Route>
 
+
           <Route path="/createQuestion">
-            <Question />
+            <questionProvider.Provider value={[questionInfo, setQuestionInfo]}>
+              <choiceProvider.Provider value={[choiceInfo, setChoiceInfo]}>
+                <Question />
+              </choiceProvider.Provider>
+            </questionProvider.Provider>
           </Route>
 
           <Route path="/createChoice">
-            <Choice />
+            <choiceProvider.Provider value={[choiceInfo, setChoiceInfo]}>
+              <Choice />
+            </choiceProvider.Provider>
+
           </Route>
 
         </Switch>

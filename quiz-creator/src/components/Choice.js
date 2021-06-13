@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Form, Col, Row, Container, } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import { choiceProvider } from '../App'
 
 export default function Choice() {
+
+    const [choiceInfo, setChoiceInfo] = useContext(choiceProvider)
+    console.log(choiceInfo)
     const history = useHistory();
-    const [choiceInfo, setQuestionInfo] = useState({
-        "choice": "",
-        "isCorrect": ""
-    })
 
     function temp() {
         console.log(choiceInfo)
