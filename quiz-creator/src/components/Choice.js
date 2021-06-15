@@ -6,12 +6,20 @@ import { choiceProvider } from '../App'
 export default function Choice() {
 
     const [choiceInfo, setChoiceInfo] = useContext(choiceProvider)
-    console.log(choiceInfo)
     const history = useHistory();
 
-    function temp() {
-        console.log(choiceInfo)
+    let choice = "";
+    let isCorrect = "false";
+
+    function addChoice() {
+        //Updating the values
+        choiceInfo.push({
+            "choice": choice,
+            "isCorrect": isCorrect.toString(),
+        })
+        history.push("/createQuestion")
     }
+
 
     return (
         <Container className="border p-3 w-75">
@@ -20,14 +28,14 @@ export default function Choice() {
                 <Row className='mb-3'>
                     <Col>
                         <Form.Control placeholder="Write Choice Here"
-                            onChange={e => (choiceInfo.choice = e.target.value)} />
+                            onChange={e => (choice = e.target.value)} />
 
-                        <input className="form-check-input" type="checkbox" value="single" name="choice" onChange={e => (choiceInfo.isCorrect = e.target.checked)} /> Correct Option
+                        <input className="form-check-input" type="checkbox" value="single" name="choice" onChange={e => (isCorrect = e.target.checked)} /> Correct Option
                         <br />
                     </Col>
                 </Row>
                 <div className="d-flex flex-row-reverse">
-                    <Button className="p-2" variant="primary" className="m-2" onClick={() => { history.push("/createQuestion") }}>
+                    <Button className="p-2" variant="primary" className="m-2" onClick={() => addChoice()}>
                         Add Choice
                     </Button>
                     <Button className="p-2" variant="light" className="m-2 border" onClick={() => { history.push("/createQuestion") }}>

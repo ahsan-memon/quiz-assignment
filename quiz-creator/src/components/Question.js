@@ -1,23 +1,41 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Button, Form, Col, Row, Container, } from 'react-bootstrap';
 import ListChoice from './ListChoice'
 import { useHistory } from 'react-router';
-import { choiceProvider, questionProvider } from '../App'
+import { choiceProvider, questionProvider, tempProvider } from '../App'
+
 
 
 export default function Question() {
     const [choiceInfo, setChoiceInfo] = useContext(choiceProvider)
-    console.log(choiceInfo)
-
     const [questionInfo, setQuestionInfo] = useContext(questionProvider)
-    console.log(questionInfo)
-
+    const [temp, setTemp] = useContext(tempProvider);
     const history = useHistory();
 
+    let refQ = React.createRef()
+    let refP = React.createRef()
 
-    function temp() {
-        console.log(questionInfo)
+    useEffect(() => {
+        refQ.current.value = temp.question == undefined ? "" : temp.question
+        refP.current.value = temp.points == undefined ? "" : temp.points
+    }, [])
+
+    function addQuestion() {
+        //Updating the values
+        questionInfo.push({
+            "question": temp.question,
+            "type": temp.type,
+            "points": temp.points,
+            "choices": [...choiceInfo]
+        })
+        setChoiceInfo([]);
+        temp.question = ""
+        temp.points = ""
+
+
+        history.push("/createQuiz")
     }
+
 
     return (
         <Container className="border">
@@ -25,8 +43,8 @@ export default function Question() {
                 <h1><b>Question</b></h1>
                 <Row className='mb-3'>
                     <Col>
-                        <Form.Control placeholder="Write Question Here"
-                            onChange={e => (questionInfo.question = e.target.value)} />
+                        <Form.Control placeholder="Write Question Here" ref={refQ}
+                            onChange={e => (temp.question = e.target.value)} />
                     </Col>
                 </Row>
 
@@ -34,9 +52,9 @@ export default function Question() {
                     <Col>
                         <Form.Label>Type</Form.Label><br />
                         <div>
-                            <input className="form-check-input" type="radio" value="single" name="choice" onChange={e => (questionInfo.type = "Single Choice")} /> Single Choice
+                            <input className="form-check-input" type="radio" value="single" name="choice" onChange={e => (temp.type = "Single")} /> Single Choice
                             <br />
-                            <input className="form-check-input" type="radio" value="multiple" name="choice" onChange={e => (questionInfo.type = "Multiple Choice")} /> Multiple Choice
+                            <input className="form-check-input" type="radio" value="multiple" name="choice" onChange={e => (temp.type = "Multiple")} /> Multiple Choice
                             <br />
 
                         </div>
@@ -44,8 +62,8 @@ export default function Question() {
                     <Col>
                         <Form.Label>Points</Form.Label>
                         <div>
-                            <Form.Control placeholder="Enter Points"
-                                onChange={e => (questionInfo.points = e.target.value)} />
+                            <Form.Control ref={refP} placeholder="Enter Points"
+                                onChange={e => (temp.points = e.target.value)} />
                             <br />
                         </div>
                     </Col>
@@ -54,10 +72,12 @@ export default function Question() {
                 <ListChoice />
 
                 <div className="d-flex flex-row-reverse">
-                    <Button className="p-2" variant="primary" className="m-2" onClick={() => { history.push("/createQuiz") }}>
+                    <Button className="p-2" variant="primary" className="m-2" onClick={() => addQuestion()}>
                         Create
                     </Button>
-                    <Button className="p-2" variant="light" className="m-2 border" onClick={() => { history.push("/createQuiz") }}>
+                    <Button className="p-2" variant="light" className="m-2 border" onClick={() => {
+                        history.push("/createQuiz")
+                    }}>
                         Cancel
                     </Button>
                 </div>

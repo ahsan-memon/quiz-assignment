@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, Image } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import { choiceProvider, questionProvider } from '../App'
 
-let empty = true;
+let empty = false;
 const ListChoice = () => {
+  const [choiceInfo, setChoiceInfo] = useContext(choiceProvider)
 
   const history = useHistory();
-  if (empty)
+  if (choiceInfo.length == 0)
     return (
       <div style={{ height: "200px" }} className="border d-flex justify-content-center align-items-center">
         <Button className="px-3" variant="primary" onClick={() => { history.push("/createChoice") }}>Add Choice</Button>
@@ -20,15 +22,20 @@ const ListChoice = () => {
           <tr>
             <th>Text</th>
             <th>Is Correct</th>
-            <th>Actions</th>
+            {/* <th>Actions</th> */}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Lorem Ipsum</td>
-            <td>Yes</td>
-            <td>action1</td>
-          </tr>
+
+          {choiceInfo.map((c) => {
+            return (
+              <tr>
+                <td>{c["choice"]}</td>
+                <td>{c["isCorrect"]}</td>
+                {/* <td>{c["actions"]}</td> */}
+              </tr>
+            )
+          })}
 
         </tbody>
       </Table>

@@ -11,21 +11,19 @@ import { Container } from "react-bootstrap"
 
 export const choiceProvider = React.createContext();
 export const questionProvider = React.createContext();
-
+export const tempProvider = React.createContext();
+export const tempQuizProvider = React.createContext();
 
 function App() {
-  const [choiceInfo, setChoiceInfo] = useState({
-    "choice": "",
-    "isCorrect": ""
-  })
+  const [choiceInfo, setChoiceInfo] = useState([
+  ])
 
-  const [questionInfo, setQuestionInfo] = useState({
-    "question": "",
-    "type": "",
-    "points": "",
-    // "choices": ["yes", "no"]
+  const [questionInfo, setQuestionInfo] = useState([
+  ])
 
-  })
+  const [tempQuiz, setTempQuiz] = useState([])
+
+  const [temp, setTemp] = useState([])
 
 
   return (
@@ -40,7 +38,9 @@ function App() {
 
           <Route path="/createQuiz">
             <questionProvider.Provider value={[questionInfo, setQuestionInfo]}>
-              <FormCreate />
+              <tempQuizProvider.Provider value={[tempQuiz, setTempQuiz]}>
+                <FormCreate />
+              </tempQuizProvider.Provider>
             </questionProvider.Provider>
           </Route>
 
@@ -48,7 +48,9 @@ function App() {
           <Route path="/createQuestion">
             <questionProvider.Provider value={[questionInfo, setQuestionInfo]}>
               <choiceProvider.Provider value={[choiceInfo, setChoiceInfo]}>
-                <Question />
+                <tempProvider.Provider value={[temp, setTemp]}>
+                  <Question />
+                </tempProvider.Provider>
               </choiceProvider.Provider>
             </questionProvider.Provider>
           </Route>

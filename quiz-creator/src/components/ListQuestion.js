@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import { questionProvider } from '../App'
 
 let empty = false;
 const ListQuestion = () => {
   const history = useHistory();
-  if (empty)
+  const [questionInfo, setQuestionInfo] = useContext(questionProvider)
+
+  if (questionInfo.length == 0)
     return (
       <div style={{ height: "200px" }} className="border d-flex justify-content-center align-items-center">
         <Button className="px-3" variant="primary" onClick={() => { history.push("/createQuestion") }}>Add Question</Button>
@@ -21,17 +24,24 @@ const ListQuestion = () => {
             <th>Type</th>
             <th>Choices</th>
             <th>Points</th>
-            <th>Actions</th>
+            {/* <th>Actions</th> */}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Lorem Ipsum</td>
-            <td>Multiple Choice</td>
-            <td>5</td>
-            <td>10</td>
-            <td>a</td>
-          </tr>
+
+          {questionInfo.map((q) => {
+            return (
+              <tr>
+                {console.log(q["question"], "QQQ")}
+                <td>{q["question"]}</td>
+                <td>{q["type"]}</td>
+                <td>{q["choices"].length}</td>
+                <td>{q["points"]}</td>
+                {/* <td>{q["actions"]}</td> */}
+
+              </tr>
+            )
+          })}
 
         </tbody>
       </Table>
