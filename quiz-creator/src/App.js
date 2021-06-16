@@ -21,7 +21,7 @@ function App() {
   const [questionInfo, setQuestionInfo] = useState([
   ])
 
-  const [tempQuiz, setTempQuiz] = useState([])
+  const [tempQuiz, setTempQuiz] = useState({})
 
   const [temp, setTemp] = useState([])
 

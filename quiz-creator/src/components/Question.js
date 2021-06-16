@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Button, Form, Col, Row, Container, } from 'react-bootstrap';
 import ListChoice from './ListChoice'
 import { useHistory } from 'react-router';
@@ -62,7 +62,7 @@ export default function Question() {
                     <Col>
                         <Form.Label>Points</Form.Label>
                         <div>
-                            <Form.Control ref={refP} placeholder="Enter Points"
+                            <Form.Control ref={refP} placeholder="Enter Points" type="number"
                                 onChange={e => (temp.points = e.target.value)} />
                             <br />
                         </div>

@@ -7,6 +7,8 @@ import { useHistory } from 'react-router';
 import { questionProvider, tempQuizProvider } from '../App'
 
 const FormCreate = () => {
+  const axios = require('axios').default;
+
   const [questionInfo, setQuestionInfo] = useContext(questionProvider)
   const history = useHistory();
   const [tempQuiz, setTempQuiz] = useContext(tempQuizProvider)
@@ -24,9 +26,22 @@ const FormCreate = () => {
     refDeadline.current.value = tempQuiz.deadline == undefined ? "" : tempQuiz.deadline
   }, [])
 
-  console.log(questionInfo, "questionInfo--------in FormCreate")
+
 
   function addQuiz() {
+
+    tempQuiz.questions = [...questionInfo]
+    axios.post("http://localhost:8080/Quiz", tempQuiz)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+    setQuestionInfo([]);
+
     tempQuiz.title = ""
     tempQuiz.points = ""
     tempQuiz.time = ""

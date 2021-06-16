@@ -32,7 +32,6 @@ const ListQuestion = () => {
           {questionInfo.map((q) => {
             return (
               <tr>
-                {console.log(q["question"], "QQQ")}
                 <td>{q["question"]}</td>
                 <td>{q["type"]}</td>
                 <td>{q["choices"].length}</td>
